@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Sleep</string>
+    <string name="action_clear">Clear records</string>
+</resources>
