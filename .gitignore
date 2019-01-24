@@ -67,3 +67,4 @@ gradle.properties
 gradle/
 gradlew
 gradlew.bat
+/debug.keystore

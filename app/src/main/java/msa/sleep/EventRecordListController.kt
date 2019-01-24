@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit
 
 class EventRecordListController : TypedEpoxyController<EventState>() {
 
-
     @AutoModel
     lateinit var loadingItemModel: LoadingItemModel_
 

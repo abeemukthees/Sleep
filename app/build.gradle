@@ -25,16 +25,26 @@ android {
 
     }
 
-    buildTypes {
+    signingConfigs {
 
         debug {
-            manifestPlaceholders = [usesCleartextTraffic: "true"]
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
         }
+    }
+
+    buildTypes {
 
         release {
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            debuggable false
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [usesCleartextTraffic: "false"]
+            signingConfig signingConfigs.debug
         }
     }
 }

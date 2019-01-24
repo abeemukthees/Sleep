@@ -1,6 +1,7 @@
 package msa.sleep
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,9 +24,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        button_start.setOnClickListener { startService(Intent(this, SpyService::class.java)) }
-        button_stop.setOnClickListener { stopService(Intent(this, SpyService::class.java)) }
+        button_start.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(Intent(this, SpyService::class.java))
+            } else {
 
+                startService(Intent(this, SpyService::class.java))
+            }
+        }
+        button_stop.setOnClickListener { stopService(Intent(this, SpyService::class.java)) }
 
         epoxyRecyclerView.setController(eventRecordListController)
         epoxyRecyclerView.setItemSpacingDp(8)
@@ -49,15 +56,12 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_clear -> {
-
                 eventViewModel.input.accept(EventAction.DeleteAllEventRecords)
-
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
     private fun setupViews(state: EventState) {
 
